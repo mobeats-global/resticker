@@ -1,0 +1,20 @@
+version: '2'
+services:
+  resticker:
+    image: mobeats-global/resticker
+    hostname: docker
+    environment:
+      BACKUP_CRON: 0 0 04 * * *
+      RESTIC_BACKUP_SOURCES: /mnt/volumes
+      RESTIC_BACKUP_TAGS: docker-volumes
+      RESTIC_FORGET_ARGS: --prune --keep-last 14 --keep-daily 1
+      RESTIC_PASSWORD: strongpassword
+      RESTIC_REPOSITORY: local:/restic
+      RESTIC_BACKUP_OPTIONS: --exclude-file=/restic/excludes.txt
+      TZ: America/Argentina/Buenos_Aires
+    volumes:
+    - /var/lib/docker/volumes:/mnt/volumes:ro
+    - /backups/volume_backup:/restic
+    labels:
+      io.rancher.container.pull_image: always
+
