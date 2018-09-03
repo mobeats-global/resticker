@@ -1,7 +1,7 @@
 version: '2'
 services:
   resticker:
-    image: mobeats-global/resticker
+    image: mobeatsglobal/resticker
     hostname: docker
     environment:
       BACKUP_CRON: 0 0 04 * * *
